@@ -4,11 +4,23 @@
 
 #include "Card.hxx"
 
+/**********************************************
+ * @brief Construct a new Card:: Card object
+ *
+ ***********************************************/
 Card::Card()
     : data{0, 0, 0, 0}
 {
 }
 
+/**********************************************
+ * @brief Construct a new Card:: Card object
+ *
+ * @param value , la valeur de la carte, entre 0 et 10
+ * @param bonus, la valeur du bonus, entre 0 et 4
+ * @param color RED or BLACK
+ * @throws assert si value ou bonus ne sont pas dans les bornes
+ ***********************************************/
 Card::Card(int value, int bonus, Color color)
 {
     assert(value >= 0 && value <= 10);
@@ -20,36 +32,70 @@ Card::Card(int value, int bonus, Color color)
     data.modifier = (color == Color::RED) ? 1 : 0; // 1 = 1.5, 0 = 1.0
 }
 
+/**********************************************
+ * @brief Construct a new Card:: Card object
+ *
+ * @param to_copy
+ ***********************************************/
 Card::Card(const Card &to_copy)
     : data(to_copy.data)
 {
 }
-
+/**********************************************
+ * @brief getteur de la valeur de la carte
+ *
+ * @return int
+ ***********************************************/
 int Card::getValue() const
 {
     return data.value;
 }
 
+/**********************************************
+ * @brief getter du bonus
+ *
+ * @return int
+ ***********************************************/
 int Card::getBonus() const
 {
     return data.bonus;
 }
 
+/**********************************************
+ * @brief getter du modificateur
+ *
+ * @return float
+ ***********************************************/
 float Card::getModifier() const
 {
     return (data.modifier == 1) ? 1.5 : 1.0;
 }
 
+/**********************************************
+ * @brief getter couleur
+ *
+ * @return Card::Color
+ ***********************************************/
 Card::Color Card::getColor() const
 {
     return (data.color == 1) ? Color::RED : Color::BLACK;
 }
 
+/**********************************************
+ * @brief calculateur du score
+ *
+ * @return float
+ ***********************************************/
 float Card::computeScore() const
 {
     return data.value * getModifier() * data.bonus;
 }
 
+/**********************************************
+ * @brief génération aléatoire
+ *
+ * @return Card
+ ***********************************************/
 Card Card::generateRandomCard()
 {
     // https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
@@ -69,12 +115,25 @@ Card Card::generateRandomCard()
     return Card(value, bonus, color);
 }
 
+/**********************************************
+ * @brief surcharge =
+ *
+ * @param to_copy
+ * @return Card&
+ ***********************************************/
 Card &Card::operator=(const Card &to_copy)
 {
     data = to_copy.data;
     return *this;
 }
 
+/**********************************************
+ * @brief surcharge <<
+ *
+ * @param output
+ * @param c
+ * @return std::ostream&
+ ***********************************************/
 std::ostream &operator<<(std::ostream &output, const Card &c)
 {
     output << "(" << c.getValue()
