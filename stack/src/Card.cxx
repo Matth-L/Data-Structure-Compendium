@@ -1,71 +1,53 @@
-#include "Card.hxx"
 #include <iostream>
 #include <random>
+#include <cassert>
+
+#include "Card.hxx"
 
 Card::Card()
-    : value(0), bonus(0), color(Color::BLACK)
+    : data{0, 0, 0, 0}
 {
 }
 
 Card::Card(int value, int bonus, Color color)
-    : value(value), bonus(bonus), color(color)
 {
-    if (color == Color::RED)
-    {
-        modifier = 1.5f;
-    }
-    else
-    {
-        modifier = 1.0f;
-    }
+    assert(value >= 0 && value <= 10);
+    assert(bonus >= 0 && bonus <= 4);
+
+    data.value = static_cast<unsigned int>(value);
+    data.bonus = static_cast<unsigned int>(bonus);
+    data.color = (color == Color::RED) ? 1 : 0;    // 1 = RED, 0 = BLACK
+    data.modifier = (color == Color::RED) ? 1 : 0; // 1 = 1.5, 0 = 1.0
 }
 
 Card::Card(const Card &to_copy)
-    : value(to_copy.value), bonus(to_copy.bonus), color(to_copy.color)
+    : data(to_copy.data)
 {
-    modifier = to_copy.modifier;
 }
 
 int Card::getValue() const
 {
-    return value;
+    return data.value;
 }
 
 int Card::getBonus() const
 {
-    return bonus;
-}
-
-Card::Color Card::getColor() const
-{
-    return color;
+    return data.bonus;
 }
 
 float Card::getModifier() const
 {
-    return modifier;
+    return (data.modifier == 1) ? 1.5 : 1.0;
 }
 
-Card &Card::operator=(const Card &to_copy)
+Card::Color Card::getColor() const
 {
-    value = to_copy.value;
-    bonus = to_copy.bonus;
-    color = to_copy.color;
-    modifier = to_copy.modifier;
-    return *this;
-}
-
-std::ostream &operator<<(std::ostream &output, const Card &c)
-{
-    output << "(" << c.value << ", " << c.bonus << ", ";
-    output << (c.color == Card::Color::RED ? "RED" : "BLACK") << ")\n";
-    output << "Modifier de p1: " << c.getModifier() << ".";
-    return output;
+    return (data.color == 1) ? Color::RED : Color::BLACK;
 }
 
 float Card::computeScore() const
 {
-    return value * modifier * bonus;
+    return data.value * getModifier() * data.bonus;
 }
 
 Card Card::generateRandomCard()
@@ -85,4 +67,28 @@ Card Card::generateRandomCard()
 
     // the modifier is set in the constructor
     return Card(value, bonus, color);
+}
+
+Card &Card::operator=(const Card &to_copy)
+{
+    data = to_copy.data;
+    return *this;
+}
+
+std::ostream &operator<<(std::ostream &output, const Card &c)
+{
+    output << "(" << c.getValue()
+           << ", " << c.getBonus()
+           << ",";
+    if (c.getColor() == Card::Color::RED)
+    {
+        output << "RED";
+    }
+    else
+    {
+        output << "BLACK";
+    }
+    output << ")\n";
+    output << "Modifier de p1: " << c.getModifier() << ".";
+    return output;
 }

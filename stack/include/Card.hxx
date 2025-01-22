@@ -5,80 +5,39 @@
 
 class Card
 {
-    enum class Color
-    {
-        RED,
-        BLACK
-    };
-
-private:
-    int value;
-    int bonus;
-    float modifier;
-    Color color;
 
 public:
+    enum class Color
+    {
+        RED,  // 1
+        BLACK // 0
+    };
     Card();
-    /**********************************************
-     * @brief Construct a new Card object
-     *
-     * @param value
-     * @param bonus
-     * @param color
-     ***********************************************/
     Card(int value, int bonus, Color color);
-
-    /**********************************************
-     * @brief Construct a new Card object
-     *
-     * @param to_copy
-     ***********************************************/
     Card(const Card &to_copy);
-    /**********************************************
-     * @brief Get the Value object
-     *
-     * @return int
-     ***********************************************/
+
+    // getters
     int getValue() const;
-
-    /**********************************************
-     * @brief Get the Bonus object
-     *
-     * @return int
-     ***********************************************/
     int getBonus() const;
-
-    /**********************************************
-     * @brief Get the Modifier object
-     *
-     * @return float
-     ***********************************************/
     float getModifier() const;
-
-    /**********************************************
-     * @brief Get the Color object
-     *
-     * @return Color
-     ***********************************************/
     Color getColor() const;
 
-    /**********************************************
-     * @brief Compute the score of the card, .ie value * modifier * bonus
-     *
-     * @return float
-     ***********************************************/
+    // game methods
     float computeScore() const;
-
-    /**********************************************
-     * @brief Use normal distribution to generate a random card
-     *
-     * @return Card
-     ***********************************************/
     static Card generateRandomCard();
 
+    // overloads
     Card &operator=(const Card &to_copy);
-
     friend std::ostream &operator<<(std::ostream &output, const Card &c);
+
+private:
+    struct uCardData
+    {
+        unsigned int value : 4;    // 4 bits (0-15)
+        unsigned int bonus : 3;    // 3 bits (0-4)
+        unsigned int modifier : 1; // 1 bit (0 = 1.0, 1 = 1.5)
+        unsigned int color : 1;    // 1 bit (0 = Black, 1 = Red)
+    } data;
 };
 
 #endif // CARD_HXX
