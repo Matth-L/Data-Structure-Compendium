@@ -1,19 +1,27 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -g
+CXXFLAGS = -Wall -Wextra  -g
 SRCDIR = src
 BINDIR = bin
-
 SRC = $(SRCDIR)/main.cxx
 OBJ = $(BINDIR)/main.o
-EXEC = war_game
+EXEC = war_game test
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ)
-	$(CXX) -o $(EXEC) $(OBJ)
+war_game: $(OBJ)
+	@mkdir -p $(BINDIR)
+	$(CXX) $(CXXFLAGS) -o $@ $<
 
-$(BINDIR)/main.o: $(SRCDIR)/main.cxx
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/main.cxx -o $(BINDIR)/main.o
+$(BINDIR)/%.o: $(SRCDIR)/%.cxx
+	@mkdir -p $(BINDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+test: $(SRCDIR)/Piletest.h $(SRCDIR)/Pile.hxx
+	@mkdir -p $(BINDIR)
+	cxxtestgen --error-printer -o $(SRCDIR)/test.cpp $(SRCDIR)/Piletest.h
+	$(CXX) $(CXXFLAGS) -o $@ $(SRCDIR)/test.cpp $(SRCDIR)/Pile.hxx
 
 clean:
-	rm -f $(BINDIR)/*.o $(EXEC)
+	rm -f $(BINDIR)/*.o $(EXEC) $(SRCDIR)/test.cpp
+
+.PHONY: all clean
