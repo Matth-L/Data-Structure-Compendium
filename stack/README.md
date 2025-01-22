@@ -17,4 +17,18 @@ To build and run the game, use the following commands:
 
 ```bash
 make
+./war_game
+```
+
+We created tests to check the stack implementation. To run the tests, use:
+
+```bash
+make test
+./test
+```
+
+To clean up the build files, use:
+
+```bash
+make clean
 ```
