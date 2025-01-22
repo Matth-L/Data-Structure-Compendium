@@ -12,8 +12,8 @@ class Card
     };
 
 private:
-    unsigned char value;
-    unsigned char bonus;
+    int value;
+    int bonus;
     float modifier;
     Color color;
 
@@ -26,7 +26,7 @@ public:
      * @param bonus
      * @param color
      ***********************************************/
-    Card(unsigned char value, unsigned char bonus, Color color);
+    Card(int value, int bonus, Color color);
 
     /**********************************************
      * @brief Construct a new Card object
@@ -37,16 +37,23 @@ public:
     /**********************************************
      * @brief Get the Value object
      *
-     * @return unsigned char
+     * @return int
      ***********************************************/
-    unsigned char getValue() const;
+    int getValue() const;
 
     /**********************************************
      * @brief Get the Bonus object
      *
-     * @return unsigned char
+     * @return int
      ***********************************************/
-    unsigned char getBonus() const;
+    int getBonus() const;
+
+    /**********************************************
+     * @brief Get the Modifier object
+     *
+     * @return float
+     ***********************************************/
+    float getModifier() const;
 
     /**********************************************
      * @brief Get the Color object

@@ -14,12 +14,16 @@ private:
     float score;
 
 public:
-    Player(unsigned char max_gain, unsigned char max_hand);
+    Player(int max_gain, int max_hand);
     Player(const Player &to_copy);
     ~Player();
 
     float getScore() const;
+    void addCard(const Card &c);
+
     float computePileScore(Pile<Card> &c) const;
+
+    float computeFinalScore();
 
     bool canPlay() const
     {

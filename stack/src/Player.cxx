@@ -1,7 +1,7 @@
 #include <iostream>
-#include "include/Player.hxx"
+#include "Player.hxx"
 
-Player::Player(unsigned char max_gain, unsigned char max_hand)
+Player::Player(int max_gain, int max_hand)
     : gain(max_gain), hand(max_hand)
 {
 }
@@ -31,6 +31,11 @@ float Player::computePileScore(Pile<Card> &s) const
     return score;
 }
 
+float Player::computeFinalScore()
+{
+    return computePileScore(gain);
+}
+
 void Player::one_round_war(Player &p1, Player &p2)
 {
     if (p1.hand.estVide() || p2.hand.estVide())
@@ -40,6 +45,12 @@ void Player::one_round_war(Player &p1, Player &p2)
 
     Card c1 = p1.hand.depiler();
     Card c2 = p2.hand.depiler();
+
+    cout << "Carte de p1: " << c1 << endl;
+    cout << "Score de p1: " << c1.computeScore() << endl;
+
+    cout << "Carte de p2: " << c2 << endl;
+    cout << "Score de p2: " << c2.computeScore() << endl;
 
     Pile<Card> &mainGagnante =
         (c1.computeScore() > c2.computeScore()) ? p1.gain : p2.gain;
@@ -62,4 +73,9 @@ std::ostream &operator<<(std::ostream &output, const Player &p)
     output << "Hand: " << p.hand << std::endl;
     output << "Score: " << p.score << std::endl;
     return output;
+}
+
+void Player::addCard(const Card &c)
+{
+    hand.empiler(c);
 }

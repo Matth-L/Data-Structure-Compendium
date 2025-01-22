@@ -1,4 +1,4 @@
-#include "include/Card.hxx"
+#include "Card.hxx"
 #include <iostream>
 #include <random>
 
@@ -7,7 +7,7 @@ Card::Card()
 {
 }
 
-Card::Card(unsigned char value, unsigned char bonus, Color color)
+Card::Card(int value, int bonus, Color color)
     : value(value), bonus(bonus), color(color)
 {
     if (color == Color::RED)
@@ -23,14 +23,15 @@ Card::Card(unsigned char value, unsigned char bonus, Color color)
 Card::Card(const Card &to_copy)
     : value(to_copy.value), bonus(to_copy.bonus), color(to_copy.color)
 {
+    modifier = to_copy.modifier;
 }
 
-unsigned char Card::getValue() const
+int Card::getValue() const
 {
     return value;
 }
 
-unsigned char Card::getBonus() const
+int Card::getBonus() const
 {
     return bonus;
 }
@@ -40,18 +41,25 @@ Card::Color Card::getColor() const
     return color;
 }
 
+float Card::getModifier() const
+{
+    return modifier;
+}
+
 Card &Card::operator=(const Card &to_copy)
 {
     value = to_copy.value;
     bonus = to_copy.bonus;
     color = to_copy.color;
+    modifier = to_copy.modifier;
     return *this;
 }
 
 std::ostream &operator<<(std::ostream &output, const Card &c)
 {
     output << "(" << c.value << ", " << c.bonus << ", ";
-    output << (c.color == Card::Color::RED ? "RED" : "BLACK") << ")";
+    output << (c.color == Card::Color::RED ? "RED" : "BLACK") << ")\n";
+    output << "Modifier de p1: " << c.getModifier() << ".";
     return output;
 }
 
@@ -71,8 +79,8 @@ Card Card::generateRandomCard()
     std::uniform_int_distribution<> bonus_dist(1, 4);
     std::uniform_int_distribution<> color_dist(0, 1);
 
-    unsigned char value = value_dist(gen);
-    unsigned char bonus = bonus_dist(gen);
+    int value = value_dist(gen);
+    int bonus = bonus_dist(gen);
     Color color = color_dist(gen) == 0 ? Color::BLACK : Color::RED;
 
     // the modifier is set in the constructor
