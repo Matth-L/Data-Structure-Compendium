@@ -1,6 +1,6 @@
 # 🃏 Card Game Simulation: War 🎴
 
-This simple program simulates the classic card game **War**. It's designed to practice using stacks in C++.
+This simple program simulates the classic card game **War**. It's designed to practice using **stacks** in C++.
 
 ## 🔧 Implementation
 
@@ -33,8 +33,7 @@ make
 We created tests to check the stack implementation. To run the tests, use:
 
 ```bash
-make test
-./test
+./test_pile
 ```
 
 To clean up the build files, use:

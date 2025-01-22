@@ -17,6 +17,11 @@ int main()
     int max_hand;
     std::cout << "Combien de cartes chaque joueur aura-t-il ? ";
     std::cin >> max_hand;
+    if (max_hand <= 0 || max_hand > 50)
+    {
+        std::cerr << "Le nombre de cartes doit être compris entre 1 et 50." << std::endl;
+        return 1;
+    }
 
     // Etape 3 : Création des joueurs et attribution des cartes
     Player p1(max_hand * 2, max_hand);
