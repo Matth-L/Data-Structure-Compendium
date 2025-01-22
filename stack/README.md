@@ -10,6 +10,16 @@ Each player's cards will be stored in a stack. The game continues until one play
 ## 📋 Requirements
 - C++ compiler
 - Make
+- CxxTest (for running tests)
+
+To install the requirements on Debian based systems, use the following commands:
+
+```bash
+sudo apt update
+sudo apt install build-essential
+sudo apt install cmake
+sudo apt install cxxtest
+```
 
 ## 🚀 Usage
 
