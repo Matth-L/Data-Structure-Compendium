@@ -42,6 +42,8 @@ public:
     /**********************************************
      * @brief Constructeur de copie
      *
+     * @param to_copy la pile à copier
+     * @throws les erreurs de make_unique si l'allocation de mémoire échoue
      ***********************************************/
     Pile(const Pile &to_copy)
         : tab(make_unique<T[]>(to_copy.tailleMax)),
@@ -77,7 +79,7 @@ public:
     /**********************************************
      * @brief Dépile un élément de type T de la pile
      *
-     * @return T
+     * @return T, l'élément dépilé
      ***********************************************/
     T depiler()
     {

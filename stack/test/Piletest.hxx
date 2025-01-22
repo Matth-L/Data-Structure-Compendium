@@ -1,5 +1,5 @@
 #include <cxxtest/TestSuite.h>
-#include "Pile.hxx"
+#include "include/Pile.hxx"
 
 class PileTest : public CxxTest::TestSuite
 {
