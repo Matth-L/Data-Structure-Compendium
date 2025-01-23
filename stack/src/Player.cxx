@@ -52,27 +52,39 @@ void Player::one_round_war(Player &p1, Player &p2)
     int p1_value = c1.getValue();
     int p2_value = c2.getValue();
 
-    // p1 gagne
-    if (p1_value > p2_value ||
-        (p1_value == p2_value && c1.getColor() == Card::Color::RED))
+    if (p1_value > p2_value)
     {
         p1.gain.empiler(c1);
         p1.gain.empiler(c2);
         cout << "p1 gagne" << endl;
     }
     // p2 gagne
-    else if (p1_value < p2_value ||
-             (p1_value == p2_value && c2.getColor() == Card::Color::RED))
+    else if (p1_value < p2_value)
     {
         p2.gain.empiler(c1);
         p2.gain.empiler(c2);
         cout << "p2 gagne" << endl;
     }
-    else // égalité
+    else // valeurs égales
     {
-        p1.gain.empiler(c1);
-        p2.gain.empiler(c2);
-        cout << "égalité" << endl;
+        if (c1.getColor() == Card::Color::RED)
+        {
+            p1.gain.empiler(c1);
+            p1.gain.empiler(c2);
+            cout << "p1 gagne" << endl;
+        }
+        else if (c2.getColor() == Card::Color::RED)
+        {
+            p2.gain.empiler(c1);
+            p2.gain.empiler(c2);
+            cout << "p2 gagne" << endl;
+        }
+        else // égalité
+        {
+            p1.gain.empiler(c1);
+            p2.gain.empiler(c2);
+            cout << "égalité" << endl;
+        }
     }
 }
 
