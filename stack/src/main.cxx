@@ -19,8 +19,8 @@ int main()
     std::cin >> max_hand;
     if (max_hand <= 0 || max_hand > 50)
     {
-        std::cerr << "Le nombre de cartes doit être compris entre 1 et 50." << std::endl;
-        return 1;
+        cout << "Veuillez entrer un nombre entre 1 et 50." << endl;
+        main();
     }
 
     // Etape 3 : Création des joueurs et attribution des cartes
@@ -56,4 +56,17 @@ int main()
              : scoreP1 < scoreP2 ? "Le joueur 2 a gagné!"
                                  : "Egalité!")
          << endl;
+
+    cout << "Voulez vous rejouer ? (y/n) ";
+    char answer;
+    cin >> answer;
+    if (answer == 'y')
+    {
+        // clean the terminal
+        system("clear");
+
+        main();
+    }
+
+    return 0;
 }
