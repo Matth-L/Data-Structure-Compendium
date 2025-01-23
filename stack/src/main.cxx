@@ -38,9 +38,9 @@ int main()
     // Etape 4 : Le jeu se déroule
     while (p1.canPlay() && p2.canPlay())
     {
-        p1.one_round_war(p1, p2);
         number_of_rounds++;
         cout << "Round " << number_of_rounds << endl;
+        p1.one_round_war(p1, p2);
     }
 
     cout << "Jeu terminé après " << number_of_rounds << " rounds." << endl;

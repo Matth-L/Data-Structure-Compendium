@@ -138,7 +138,7 @@ std::ostream &operator<<(std::ostream &output, const Card &c)
 {
     output << "(" << c.getValue()
            << ", " << c.getBonus()
-           << ",";
+           << ", ";
     if (c.getColor() == Card::Color::RED)
     {
         output << "RED";
@@ -147,7 +147,7 @@ std::ostream &operator<<(std::ostream &output, const Card &c)
     {
         output << "BLACK";
     }
-    output << ")\n";
-    output << "Modifier de p1: " << c.getModifier() << ".";
+    output << ") ; ";
+    output << "Modifier de p1: " << c.getModifier() << " ; ";
     return output;
 }

@@ -47,15 +47,33 @@ void Player::one_round_war(Player &p1, Player &p2)
     Card c2 = p2.hand.depiler();
 
     cout << "Carte de p1: " << c1 << endl;
-    cout << "Score de p1: " << c1.computeScore() << endl;
-
     cout << "Carte de p2: " << c2 << endl;
-    cout << "Score de p2: " << c2.computeScore() << endl;
 
-    Pile<Card> &mainGagnante =
-        (c1.computeScore() > c2.computeScore()) ? p1.gain : p2.gain;
-    mainGagnante.empiler(c1);
-    mainGagnante.empiler(c2);
+    int p1_value = c1.getValue();
+    int p2_value = c2.getValue();
+
+    // p1 gagne
+    if (p1_value > p2_value ||
+        (p1_value == p2_value && c1.getColor() == Card::Color::RED))
+    {
+        p1.gain.empiler(c1);
+        p1.gain.empiler(c2);
+        cout << "p1 gagne" << endl;
+    }
+    // p2 gagne
+    else if (p1_value < p2_value ||
+             (p1_value == p2_value && c2.getColor() == Card::Color::RED))
+    {
+        p2.gain.empiler(c1);
+        p2.gain.empiler(c2);
+        cout << "p2 gagne" << endl;
+    }
+    else // égalité
+    {
+        p1.gain.empiler(c1);
+        p2.gain.empiler(c2);
+        cout << "égalité" << endl;
+    }
 }
 
 Player &Player::operator=(const Player &to_copy)
