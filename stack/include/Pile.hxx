@@ -167,6 +167,32 @@ public:
         output << "].";
         return output;
     }
+
+    /**********************************************
+     * @brief Redimensionne la pile, ne peut etre que plus grande
+     *
+     * @param new_size la nouvelle taille de la pile
+     * @throws std::invalid_argument si new_size <= 0
+     ***********************************************/
+    void resize(int new_size)
+    {
+        if (new_size <= 0 || new_size > MAX_PILE)
+        {
+            throw invalid_argument("Pile, taille non autorisé");
+        }
+        if (new_size <= tailleMax)
+        {
+            return;
+        }
+
+        unique_ptr<T[]> new_tab = make_unique<T[]>(new_size);
+        for (int i = 0; i <= ptrSommet; ++i)
+        {
+            new_tab[i] = std::move(tab[i]);
+        }
+        tab = move(new_tab);
+        tailleMax = new_size;
+    }
 };
 
 #endif // PILE_H

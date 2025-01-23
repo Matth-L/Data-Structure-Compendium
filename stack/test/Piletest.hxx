@@ -151,4 +151,24 @@ public:
         TS_ASSERT_EQUALS(oss.str(), "[1, 2].");
         cout << "Test 10 réussi" << endl;
     }
+
+    // Test 11 : resize
+    void testResize(void)
+    {
+        cout << "Test 11 : Resize" << endl;
+        Pile<int> pile(3);
+        pile.empiler(1);
+        pile.empiler(2);
+        pile.empiler(3);
+        pile.resize(4);
+        pile.empiler(4);
+
+        std::ostringstream oss;
+        oss << pile;
+
+        TS_ASSERT_EQUALS(pile.taille(), 4);
+        TS_ASSERT_EQUALS(pile.sommet(), 4);
+        TS_ASSERT_EQUALS(oss.str(), "[1, 2, 3, 4].");
+        cout << "Test 11 réussi" << endl;
+    }
 };
