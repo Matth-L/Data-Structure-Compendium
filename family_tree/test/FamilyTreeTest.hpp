@@ -49,9 +49,9 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -72,9 +72,9 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person grandchild1(3, "3", "Doe", "Black", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person grandchild1(3, "3", "foobar", "Black", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -95,10 +95,10 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
-        Person grandchild1(4, "4", "Doe", "Black", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Black", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -125,9 +125,9 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -155,10 +155,10 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
-        Person grandchild1(4, "4", "Doe", "Black", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Black", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -182,9 +182,9 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1980);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Blue", 3, 3, 2005);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1980);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Blue", 3, 3, 2005);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -206,10 +206,10 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
-        Person grandchild1(4, "4", "Doe", "Black", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Black", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -236,10 +236,10 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Brown", 3, 3, 2005);
-        Person grandchild1(4, "4", "Doe", "Black", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Black", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
@@ -266,10 +266,10 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "3", "Doe", "Blue", 3, 3, 2005);
-        Person grandchild1(4, "4", "Doe", "Blue", 4, 4, 2020);
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Blue", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Blue", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);

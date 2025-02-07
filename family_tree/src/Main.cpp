@@ -9,7 +9,7 @@ int main()
 {
     Person grandparent(1, "Grandparent", "Lastname", "Blue", 1, 1, 1950);
     Person parent1(2, "Parent1", "Lastname", "Green", 15, 5, 1970);
-    Person parent2(3, "Parent2", "Lastname", "Brown", 20, 8, 1975);
+    Person parent2(3, "Parent2", "Lastname", "Blue", 20, 8, 1975);
     Person child1(4, "Child1", "Lastname", "Blue", 10, 3, 2000);
     Person child2(5, "Child2", "Lastname", "Green", 12, 7, 2002);
     Person child3(6, "Child3", "Lastname", "Brown", 8, 9, 2005);
