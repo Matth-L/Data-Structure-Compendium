@@ -115,6 +115,6 @@ ostream &operator<<(ostream &os, const Person &p)
     os << "Person(ID: " << p.id << ", Prenom: " << p.prenom << ", Nom: " << p.nom
        << ", CouleurYeux: " << p.couleurYeux << ", DateNaissance: "
        << (p.dateNaissance.tm_mday) << "/" << (p.dateNaissance.tm_mon + 1) << "/" << (p.dateNaissance.tm_year + 1900)
-       << ", Age: " << p.age;
+       << ", Age: " << p.age << ")";
     return os;
 }

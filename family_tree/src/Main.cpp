@@ -7,7 +7,6 @@ using namespace std;
 
 int main()
 {
-    // Create Person objects
     Person grandparent(1, "Grandparent", "Lastname", "Blue", 1, 1, 1950);
     Person parent1(2, "Parent1", "Lastname", "Green", 15, 5, 1970);
     Person parent2(3, "Parent2", "Lastname", "Brown", 20, 8, 1975);
@@ -15,66 +14,52 @@ int main()
     Person child2(5, "Child2", "Lastname", "Green", 12, 7, 2002);
     Person child3(6, "Child3", "Lastname", "Brown", 8, 9, 2005);
 
-    // Create a FamilyTree instance
-    FamilyTree<Person> familyTree;
+    FamilyTree<Person> f;
+    f.addRoot(grandparent);
 
-    // Add relationships to the tree
-    cout << "Adding relationships..." << endl;
-    familyTree.add(grandparent, parent1);
-    familyTree.add(grandparent, parent2);
-    familyTree.add(parent1, child1);
-    familyTree.add(parent1, child2);
-    familyTree.add(parent2, child3);
+    // Ajouter un membre de la famille
+    f.add(grandparent, parent1);
+    f.add(grandparent, parent2);
+    f.add(parent1, child1);
+    f.add(parent1, child2);
+    f.add(parent2, child3);
 
-    // Check if the tree is empty
-    cout << "Is the family tree empty? " << (familyTree.isEmpty() ? "Yes" : "No") << endl;
+    // Calculer la taille de l’arbre généalogique
+    cout << "Taille de l'arbre généalogique : " << f.numberNodes() << endl;
 
-    // Check the number of nodes (people in the tree)
-    cout << "Number of nodes (people): " << familyTree.numberNodes() << endl;
+    // Lister la descendance d’une personne (in-order, pre-order and
+    // post-order)
 
-    // Check the number of leaves (people without children)
-    cout << "Number of leaves: " << familyTree.numberLeaves() << endl;
+    vector<Person> preorder = f.listDescendantPreOrder(parent1);
+    vector<Person> postorder = f.listDescendantPostOrder(grandparent);
 
-    // Get the root value
-    cout << "Root value (Grandparent): " << familyTree.getRootValue().getPrenom() << " " << familyTree.getRootValue().getNom() << endl;
-
-    // Get the sub tree of the root
-    cout << "Sub tree of root (children of Grandparent):" << endl;
-    for (auto &child : familyTree.getSubTree())
+    cout << "Descendance de " << parent1 << " (PreOrder):" << endl;
+    for (const auto &p : preorder)
     {
-        cout << child->value.getPrenom() << " " << child->value.getNom() << endl;
+        cout << "---" << p << endl;
     }
 
-    // Check if specific people exist in the tree
-    cout << "Does Parent1 exist in the tree? " << (familyTree.exists(parent1) ? "Yes" : "No") << endl;
-    cout << "Does Person 'Nonexistent' exist in the tree? " << (familyTree.exists(Person(7, "Nonexistent", "Lastname", "Purple", 1, 1, 1990)) ? "Yes" : "No") << endl;
-
-    // Get a node from the tree (Parent1)
-    auto parentNode = familyTree.getNode(parent1);
-    if (parentNode)
+    cout << "Descendance de " << grandparent << " (PostOrder):" << endl;
+    for (const auto &p : postorder)
     {
-        cout << "Node for Parent1 found: " << parentNode->value.getPrenom() << " " << parentNode->value.getNom() << endl;
+        cout << "---" << p << endl;
     }
-    else
+    // Pour une couleur d’yeux entrée par l’utilisateur, lister les personnes
+    // ayant cette couleur.
+    vector<Person> green = f.filterByEyeColor("Green");
+    cout << "Personnes avec les yeux verts" << endl;
+    for (const auto &p : green)
     {
-        cout << "Parent1 node not found." << endl;
+        cout << "---" << p << endl;
     }
 
-    // Calculate the height of the family tree starting from the root
-    cout << "Height of the tree (starting from root): " << familyTree.height(make_shared<FamilyTreeNode<Person>>(familyTree.getRootValue())) << endl;
-
-    // Remove a child from the tree and check the changes
-    cout << "Removing Child2 from Parent1..." << endl;
-    familyTree.remove(parent1, child2);
-
-    // Check the number of nodes again after removal
-    cout << "Number of nodes after removal: " << familyTree.numberNodes() << endl;
-
-    // Check if the child exists after removal
-    cout << "Does Child2 exist after removal? " << (familyTree.exists(child2) ? "Yes" : "No") << endl;
-
-    // Check the number of leaves after removal (Child2 should be removed)
-    cout << "Number of leaves after removal: " << familyTree.numberLeaves() << endl;
-
+    // Pour une couleur d’yeux entrée par l’utilisateur, permet de lister
+    // tous les ancêtres (ainsi que lui-même) qui ont la même couleur
+    vector<Person> ancestorBlue = f.listAncestorByEyeColor(child1);
+    cout << "Ancêtres avec les yeux bleus:" << endl;
+    for (const auto &p : ancestorBlue)
+    {
+        cout << "---" << p << endl;
+    }
     return 0;
 }

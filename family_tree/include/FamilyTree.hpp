@@ -401,9 +401,10 @@ public:
     // -  Pour une couleur d’yeux entrée par l’utilisateur, permet de lister
     // tous les ancêtres (ainsi que lui-même) qui ont la même couleur.
 
-    vector<T> listAncestorByEyeColor(const T &value, const string &color) const
+    vector<Person> listAncestorByEyeColor(const Person &value) const
     {
         vector<T> res;
+        string color = value.getCouleurYeux();
 
         auto node = getNode(value);
         if (node)

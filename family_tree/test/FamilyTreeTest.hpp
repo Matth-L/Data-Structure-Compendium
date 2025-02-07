@@ -266,18 +266,18 @@ public:
         cout << "==========================" << endl;
 
         FamilyTree<Person> tree;
-        Person root(1, "John", "Doe", "Blue", 1, 1, 1990);
-        Person child1(2, "Jane", "Doe", "Green", 2, 2, 2000);
-        Person child2(3, "Jack", "Doe", "Blue", 3, 3, 2005);
-        Person grandchild1(4, "Jill", "Doe", "Blue", 4, 4, 2020);
+        Person root(1, "1", "Doe", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "Doe", "Green", 2, 2, 2000);
+        Person child2(3, "3", "Doe", "Blue", 3, 3, 2005);
+        Person grandchild1(4, "4", "Doe", "Blue", 4, 4, 2020);
 
         tree.addRoot(root);
         tree.add(root, child1);
         tree.add(root, child2);
         tree.add(child1, grandchild1);
 
-        vector<Person> ancestors = tree.listAncestorByEyeColor(grandchild1, "Blue");
-        vector<Person> ancestors2 = tree.listAncestorByEyeColor(child1, "Green");
+        vector<Person> ancestors = tree.listAncestorByEyeColor(grandchild1);
+        vector<Person> ancestors2 = tree.listAncestorByEyeColor(child1);
 
         TS_ASSERT_EQUALS(ancestors.size(), 3);
         TS_ASSERT_EQUALS(ancestors2.size(), 1);
