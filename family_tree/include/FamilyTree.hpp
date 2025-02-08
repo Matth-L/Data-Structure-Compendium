@@ -42,13 +42,14 @@ private:
     int countLeaves(const TreeNodePtr &node) const
     {
         if (!node)
-            return 0;
+            return 0; // nullptr
         if (node->children.empty())
-            return 1;
+            return 1; // leaves
 
         int leafCount = 0;
         for (const auto &child : node->children)
         {
+            // count all the leaves from all the child
             leafCount += countLeaves(child);
         }
         return leafCount;
@@ -63,18 +64,11 @@ private:
      ***********************************************/
     TreeNodePtr getNodePrivate(const TreeNodePtr &node, const T &value) const
     {
-        if (!node)
-            return nullptr;
-        if (node->value == value)
+        if (!node || node->value == value)
             return node;
-
-        for (const auto &it : node->children)
-        {
-            if (auto res = getNodePrivate(it, value))
-            {
+        for (const auto &child : node->children)
+            if (auto res = getNodePrivate(child, value))
                 return res;
-            }
-        }
         return nullptr;
     }
 
@@ -93,9 +87,10 @@ private:
     {
         if (!node)
             return;
-        result.push_back(node->value);
+        result.push_back(node->value); // himself
         for (const auto &child : node->children)
         {
+            // child recursively
             preOrderTraversal(child, result);
         }
     }
@@ -111,9 +106,11 @@ private:
     void preOrderTraversalColor(const TreeNodePtr &node,
                                 const string &color,
                                 vector<T> &result,
-                                bool cond) const
+                                bool cond) // cond == true if "himself"
+        const
     {
-        if (!node || cond)
+
+        if (cond) // adding himself
         {
             result.push_back(node->value);
             return;
@@ -144,8 +141,10 @@ private:
             return;
         for (const auto &child : node->children)
         {
+            // child recursively
             postOrderTraversal(child, result);
         }
+        // himself
         result.push_back(node->value);
     }
 
@@ -223,7 +222,7 @@ public:
     /**********************************************
      * @brief Check if the V value exist in the tree, using a set
      *
-     * @param v
+     * @param v the value
      * @return true if exists, false otherwise
      ***********************************************/
     bool exists(const T &v) const
@@ -263,6 +262,7 @@ public:
         int maxHeight = 0;
         for (auto &it : node->children)
         {
+            // getting the max from each child
             maxHeight = max(maxHeight, height(it));
         }
         return 1 + maxHeight;
@@ -277,7 +277,6 @@ public:
     {
         if (exists(v))
             return;
-
         root = make_shared<FamilyTreeNode<T>>(v);
         family.insert(v);
     }
@@ -286,8 +285,8 @@ public:
      * @brief Create the relationship parent ---- children
      * @note also adds it to the set
      *
-     * @param ancestorValue  the ancestor, creates it in a new tree if it does
-     * not exist
+     * @warning the ancestor is also created if it does not exist
+     * @param ancestorValue  the ancestor
      * @param descendantValue the descendant, returns if it already exist
      ***********************************************/
     void add(const T &ancestorValue, const T &descendantValue)
@@ -295,6 +294,7 @@ public:
         if (exists(descendantValue))
             return;
 
+        // creating the ancestors
         if (!exists(ancestorValue))
             addRoot(ancestorValue);
 
@@ -304,9 +304,11 @@ public:
         auto ancestorNode =
             getNode(ancestorValue);
 
+        // adding the child to the ancestor vector
         if (ancestorNode)
             ancestorNode->children.push_back(descendantNode);
 
+        // adding to the set
         family.insert(descendantValue);
     }
 
@@ -319,16 +321,13 @@ public:
      ***********************************************/
     void remove(const T &ancestorValue, const T &descendantValue)
     {
+        // everything must exist
         if (isEmpty() || !exists(descendantValue) || !exists(ancestorValue))
         {
             return;
         }
 
         TreeNodePtr ancestorNode = getNode(ancestorValue);
-        if (!ancestorNode)
-        {
-            return;
-        }
 
         for (auto it = ancestorNode->children.begin();
              it != ancestorNode->children.end();
@@ -336,6 +335,7 @@ public:
         {
             if ((*it)->value == descendantValue)
             {
+                // child found == deleted
                 ancestorNode->children.erase(it);
                 break;
             }
@@ -349,11 +349,15 @@ public:
      *************************************************************************/
 
     /**********************************************
-     * @brief List persons with a specific eye color
+     * @brief Filter the eye colors using the set
+     *
+     * @param color eye color
+     * @return vector<Person> result
      ***********************************************/
     vector<Person> filterByEyeColor(const string &color) const
     {
         vector<Person> result;
+        // color found in the set = added to vector
         for (const auto &p : family)
         {
             if (p.getCouleurYeux() == color)
@@ -364,12 +368,18 @@ public:
         return result;
     }
 
+    /**********************************************
+     * @brief Compute the average using the set
+     *
+     * @return float
+     ***********************************************/
     float averageAge()
     {
         if (family.empty())
             return 0;
 
         float totalAge = 0;
+        // iterating over the set and getting the age every time
         for (const auto &p : family)
         {
             totalAge += p.getAge();
@@ -378,6 +388,12 @@ public:
         return totalAge / family.size();
     }
 
+    /**********************************************
+     * @brief Uses pre-order traversal to get descendant of 'value'
+     *
+     * @param value the node to get the descendant
+     * @return vector<T> result
+     ***********************************************/
     vector<T> listDescendantPreOrder(const T &value)
     {
         vector<T> res;
@@ -387,7 +403,12 @@ public:
 
         return res;
     }
-
+    /**********************************************
+     * @brief Uses post-order traversal to get descendant of 'value'
+     *
+     * @param value the node to get the descendant
+     * @return vector<T> result
+     ***********************************************/
     vector<T> listDescendantPostOrder(const T &value)
     {
         vector<T> res;
@@ -398,9 +419,13 @@ public:
         return res;
     }
 
-    // -  Pour une couleur d’yeux entrée par l’utilisateur, permet de lister
-    // tous les ancêtres (ainsi que lui-même) qui ont la même couleur.
-
+    /**********************************************
+     * @brief Uses pre-order traversal and color filtering to get the
+     * descendant with the same eye color as the node
+     *
+     * @param value the node
+     * @return vector<Person> result
+     ***********************************************/
     vector<Person> listAncestorByEyeColor(const Person &value) const
     {
         vector<T> res;
