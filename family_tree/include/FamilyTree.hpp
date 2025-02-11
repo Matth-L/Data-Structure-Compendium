@@ -14,8 +14,11 @@ template <typename T>
 struct FamilyTreeNode
 {
     using Successors = vector<shared_ptr<FamilyTreeNode<T>>>;
-    T value;
-    Successors children;
+
+    T value;                               // the node
+    Successors children;                   // a vector of children
+    shared_ptr<FamilyTreeNode<T>> partner; // the partner
+
     FamilyTreeNode(const T &val) : value(val) {}
 };
 
@@ -105,20 +108,21 @@ private:
      ***********************************************/
     void preOrderTraversalColor(const TreeNodePtr &node,
                                 const string &color,
-                                vector<T> &result,
+                                set<T> &result,
                                 bool cond) // cond == true if "himself"
         const
     {
 
         if (cond) // adding himself
         {
-            result.push_back(node->value);
+            result.insert(node->value);
             return;
         }
 
         if (node->value.getCouleurYeux() == color)
-            result.push_back(node->value);
-
+        {
+            result.insert(node->value);
+        }
         for (const auto &child : node->children)
         {
             preOrderTraversalColor(child,
@@ -158,7 +162,7 @@ private:
      ***********************************************/
     void inOrder(const TreeNodePtr &node, vector<T> &result)
     {
-        throw runtime_error("In-order traversal is not supported for a general tree.");
+        throw runtime_error("InOrderTraversal not supported for family tree.");
     }
 
 public:
@@ -344,6 +348,51 @@ public:
         family.erase(descendantValue);
     }
 
+    /**********************************************
+     * @brief Create a couple between two person
+     *
+     * @param person1 the first person
+     * @param person2 the second person
+     ***********************************************/
+    void createCouple(const T &person1, const T &person2)
+    {
+        auto node1 = getNode(person1);
+        auto node2 = getNode(person2);
+
+        if (node1 && node2)
+        {
+            node1->partner = node2;
+            node2->partner = node1;
+        }
+    }
+
+    /**********************************************
+     * @brief Create a child between two person
+     *
+     * @warning if they are not a couple, it will create it
+     *
+     * @param parent1 the first parent
+     * @param parent2 the second parent
+     * @param child the child
+     ***********************************************/
+    void addChildToCouple(const T &parent1, const T &parent2, const T &child)
+    {
+        auto node1 = getNode(parent1);
+        auto node2 = getNode(parent2);
+
+        if (node1->partner != node2)
+        {
+            createCouple(parent1, parent2);
+        }
+
+        if (node1 && node2) // check if they exist
+        {
+            TreeNodePtr childNode = make_shared<FamilyTreeNode<T>>(child);
+            node1->children.push_back(childNode);
+            node2->children.push_back(childNode);
+            family.insert(child);
+        }
+    }
     /**************************************************************************
      * using Person.hpp
      *************************************************************************/
@@ -426,9 +475,9 @@ public:
      * @param value the node
      * @return vector<Person> result
      ***********************************************/
-    vector<Person> listAncestorByEyeColor(const Person &value) const
+    set<Person> listAncestorByEyeColor(const Person &value) const
     {
-        vector<T> res;
+        set<T> res;
         string color = value.getCouleurYeux();
 
         auto node = getNode(value);
@@ -437,6 +486,18 @@ public:
             preOrderTraversalColor(root, color, res, false);
         }
         return res;
+    }
+
+    /**********************************************
+     * @brief If the ancestor is common, we delete the value from the set
+     ***********************************************/
+    void commonAncestor()
+    {
+        auto rootNode = getNode(root->value);
+        if (rootNode)
+        {
+            family.erase(rootNode->value);
+        }
     }
 };
 
