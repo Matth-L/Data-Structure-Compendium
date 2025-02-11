@@ -1,6 +1,6 @@
 # 🃏 Card Game Simulation: War 🎴
 
-This simple program simulates the classic card game **War**. It's designed to practice using **stacks** in C++.
+This program simulates the classic card game **War**. It's designed to practice using **stacks** in C++.
 
 ## 🔧 Implementation
 
