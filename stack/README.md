@@ -27,6 +27,7 @@ First, clone the repository:
 
 ```bash
 git clone https://github.com/Matth-L/data-struct-compendium.git
+cd stack
 ```
 
 To build and run the game, use the following commands:
