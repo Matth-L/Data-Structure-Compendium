@@ -276,8 +276,8 @@ public:
         tree.add(root, child2);
         tree.add(child1, grandchild1);
 
-        vector<Person> ancestors = tree.listAncestorByEyeColor(grandchild1);
-        vector<Person> ancestors2 = tree.listAncestorByEyeColor(child1);
+        set<Person> ancestors = tree.listAncestorByEyeColor(grandchild1);
+        set<Person> ancestors2 = tree.listAncestorByEyeColor(child1);
 
         TS_ASSERT_EQUALS(ancestors.size(), 3);
         TS_ASSERT_EQUALS(ancestors2.size(), 1);
