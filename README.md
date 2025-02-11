@@ -1,6 +1,6 @@
 # Data Structure Collection
 
-This repository features a set of projects that simulate different data structures. Each project focuses on a specific concept in C++ to help with hands-on learning and practice.
+This repository features a set of projects that simulate different data structures. Each project focuses on a specific concept in C++.
 
 ## Prerequisites
 
