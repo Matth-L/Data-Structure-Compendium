@@ -10,5 +10,5 @@ This repository features a set of projects that simulate different data structur
 
 ## 📂 Projects
 
-1. Stack Simulation: [War](stack/README.md)
-2. N-ary Tree with Family Tree Simulation: [Family Tree](family_tree/README.md)
+1. Stack Simulation: [War](stack/)
+2. N-ary Tree with Family Tree Simulation: [Family Tree](family_tree/)
