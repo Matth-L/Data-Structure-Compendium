@@ -1,4 +1,4 @@
-# Data Structure Collection
+# Data Structure Compendium
 
 This repository features a set of projects that simulate different data structures. Each project focuses on a specific concept in C++.
 
