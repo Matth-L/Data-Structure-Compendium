@@ -84,7 +84,7 @@ private:
      * @note visit himself, then child recusively
      *
      * @param node the node
-     * @param result the vector containing all the child
+     * @param result the vector containing all the child pre-order
      ***********************************************/
     void preOrderTraversal(const TreeNodePtr &node, vector<T> &result)
     {
@@ -133,11 +133,10 @@ private:
     }
 
     /**********************************************
-     * @brief Private post order traversal of a famiy tree
-     * @note visit child recursively, then himself
+     * @brief visit child recursively, then himself
 
      * @param node the node
-     * @param result the vector containing all the child
+     * @param result the vector containing all the child post-order
     ***********************************************/
     void postOrderTraversal(const TreeNodePtr &node, vector<T> &result)
     {
@@ -154,15 +153,35 @@ private:
 
     /**********************************************
      * @brief Visit left, root, right
-     * @note I dont see the point of doing in order
-     * when it's not even a binary tree, what is "left" and "right"
+     * @note, it's not a binary tree, so there is no left or right
+     * so we just split at the middle of the descendant vector
      *
-     * @param node
-     * @param result
+     * @param node the node
+     * @param result the vector containing all the child in-order
      ***********************************************/
-    void inOrder(const TreeNodePtr &node, vector<T> &result)
+    void inOrderTraversal(const TreeNodePtr &node, vector<T> &result)
     {
-        throw runtime_error("InOrderTraversal not supported for family tree.");
+        if (!node)
+            return;
+
+        // if there is no child, adding himself
+        if (node->children.empty())
+        {
+            result.push_back(node->value);
+            return;
+        }
+
+        size_t count = 0;
+        size_t mid = (node->children.size()) / 2;
+
+        for (const auto &child : node->children)
+        {
+            // when we are approximately at the middle, push himself
+            if (count == mid)
+                result.push_back(node->value);
+            inOrderTraversal(child, result);
+            ++count;
+        }
     }
 
 public:
@@ -468,6 +487,21 @@ public:
         return res;
     }
 
+    /**********************************************
+     * @brief Uses in-order traversal to get descendant of 'value'
+     *
+     * @param value the node to get the descendant
+     * @return vector<T> result
+     ***********************************************/
+    vector<T> listDescendantInOrder(const T &value)
+    {
+        vector<T> res;
+        auto node = getNode(value);
+        if (node)
+            inOrderTraversal(node, res);
+
+        return res;
+    }
     /**********************************************
      * @brief Uses pre-order traversal and color filtering to get the
      * descendant with the same eye color as the node

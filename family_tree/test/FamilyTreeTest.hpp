@@ -25,6 +25,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief We add the root node
+     *
+     ***********************************************/
     void testSimpleAdding()
     {
         cout << "\n==========================" << endl;
@@ -42,6 +46,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief We add root + 2 children and check if nodes = 3, leaves = 2
+     *
+     ***********************************************/
     void testAddingChildren()
     {
         cout << "\n==========================" << endl;
@@ -65,6 +73,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Adding depth with grand children
+     *
+     ***********************************************/
     void testAddingGrandchildren()
     {
         cout << "\n==========================" << endl;
@@ -88,6 +100,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Checking if all the nodes belong to the set
+     *
+     ***********************************************/
     void testRelationships()
     {
         cout << "\n==========================" << endl;
@@ -118,6 +134,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Removing nodes and testing if the number of nodes and leave
+     * are modified
+     ***********************************************/
     void testRemovingNodes()
     {
         cout << "\n==========================" << endl;
@@ -148,6 +168,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Checking the height function by adding root,child,grandchild
+     * and verify if the height is correct for each node
+     ***********************************************/
     void testHeight()
     {
         cout << "\n==========================" << endl;
@@ -175,6 +199,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Testing the filtering by color, with 2 blue and 1 green, check if
+     *  blue = 2
+     ***********************************************/
     void testFilterByEyeColor()
     {
         cout << "\n==========================" << endl;
@@ -199,6 +227,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Verifying pre-order traversal, should give : root, child
+     *
+     ***********************************************/
     void testListDescendantPreOrder()
     {
         cout << "\n==========================" << endl;
@@ -229,6 +261,10 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Verifying post-order traversal, should give : child, root
+     *
+     ***********************************************/
     void testListDescendantPostOrder()
     {
         cout << "\n==========================" << endl;
@@ -259,6 +295,45 @@ public:
         cout << "==========================" << endl;
     }
 
+    /**********************************************
+     * @brief Verifying in-order traversal, should give :
+     * left half, root, right half
+     ***********************************************/
+    void testListDescendantInOrder()
+    {
+        cout << "\n==========================" << endl;
+        cout << "      TEST: list descendants in in-order" << endl;
+        cout << "==========================" << endl;
+
+        FamilyTree<Person> tree;
+        Person root(1, "1", "foobar", "Blue", 1, 1, 1990);
+        Person child1(2, "2", "foobar", "Green", 2, 2, 2000);
+        Person child2(3, "3", "foobar", "Brown", 3, 3, 2005);
+        Person grandchild1(4, "4", "foobar", "Black", 4, 4, 2020);
+
+        tree.addRoot(root);
+        tree.add(root, child1);
+        tree.add(root, child2);
+        tree.add(child1, grandchild1);
+
+        vector<Person> descendants = tree.listDescendantInOrder(root);
+
+        TS_ASSERT_EQUALS(descendants.size(), 4);
+        TS_ASSERT_EQUALS(descendants[0], child1);
+        TS_ASSERT_EQUALS(descendants[1], grandchild1);
+        TS_ASSERT_EQUALS(descendants[2], root);
+        TS_ASSERT_EQUALS(descendants[3], child2);
+
+        cout << "==========================" << endl;
+        cout << "      TEST: done" << endl;
+        cout << "==========================" << endl;
+    }
+
+    /**********************************************
+     * @brief Listing ancestors by color, granchild1 = blue , total in family
+     * with blue eye = 3, is the list equal 3 ?
+     * Same with child 1 , which is the only one with green eye, list equal 1 ?
+     ***********************************************/
     void testListAncestorByEyeColor()
     {
         cout << "\n==========================" << endl;
