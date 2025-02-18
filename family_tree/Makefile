@@ -17,3 +17,4 @@ clean :
 	rm -rvf bin	
 	rm -vf test_family_tree
 	rm -vf arbre
+	rm -vf ./test/test_family_tree.cpp
