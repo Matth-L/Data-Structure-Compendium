@@ -22,6 +22,8 @@ int main() {
 
     int halfMinutes = 0;
 
+    bool canCreatePiston = false;
+
 
 
     while (fileFinal.taille() < 100)
@@ -30,7 +32,6 @@ int main() {
         MT.update();
         MJ.update();
         MA.update();
-        MP.update();
 
         // Etape 4 : Création des pièces
         if (MT.createPiece())
@@ -45,20 +46,18 @@ int main() {
         {
             fileAxe.enfiler(Piece(AXE));
         }
-        if (MP.createPiece() && !fileTete.estVide() && !fileJupe.estVide() && !fileAxe.estVide())
+        if (!fileTete.estVide() && !fileJupe.estVide() && !fileAxe.estVide())
         {
-            try
-            {
-                filePiston.enfiler(Piece(fileTete.defiler(), fileJupe.defiler(), fileAxe.defiler()));
-            }
-            catch (std::invalid_argument e)
-            {
-                std::cout << e.what() << std::endl;
-            }
+            filePiston.enfiler(Piece(fileTete.defiler(), fileJupe.defiler(), fileAxe.defiler()));
         }
 
-        // Etape 5 : Assemblage des pièces
         if (!filePiston.estVide())
+        {
+            MP.update();
+        }
+        
+        // Etape 5 : Assemblage des pièces
+        if (!filePiston.estVide() && MP.createPiece())
         {
             fileFinal.enfiler(filePiston.defiler());
         }
@@ -66,9 +65,11 @@ int main() {
         halfMinutes++;
     }
 
+    // Calcul du temps total
     float minutes = (float)halfMinutes / 2;
     bool isHalf = (minutes - (int)minutes) == 0.5f;
     
+    // Affichage du temps total
     std::cout << "Temps total : " << halfMinutes / 120 << "h " << (int)minutes%60 << "min " << ( (isHalf) ? 30 : 0 ) << "sec" << std::endl;
     std::cout << "Soit : " << minutes << " minutes." << std::endl;
     

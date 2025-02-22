@@ -35,6 +35,7 @@ void Machine::update()
         // random entre 1 et 4
         std::uniform_int_distribution<> break_dist(1, 4);
         int breakdown = break_dist(rng);
+        
         if (breakdown)
         {
             // random entre 10 et 20 demi minutes
