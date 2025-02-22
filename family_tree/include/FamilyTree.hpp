@@ -45,7 +45,7 @@ private:
     int countLeaves(const TreeNodePtr &node) const
     {
         if (!node)
-            return 0; // nullptr
+            return 0;
         if (node->children.empty())
             return 1; // leaves
 
@@ -67,7 +67,9 @@ private:
      ***********************************************/
     TreeNodePtr getNodePrivate(const TreeNodePtr &node, const T &value) const
     {
-        if (!node || node->value == value)
+        if (!node)
+            return nullptr;
+        if (node->value == value)
             return node;
         for (const auto &child : node->children)
             if (auto res = getNodePrivate(child, value))
