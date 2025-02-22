@@ -60,7 +60,7 @@ public: // constructeurs et destructeurs:
     }
 
     // surcharges d'opérateurs
-    const File<T>& operator = (const File<T>& other) throw (std::bad_alloc) {
+    const File<T>& operator = (const File<T>& other) {
         if (this != &other) {
             data = other.data;
             front = other.front;
