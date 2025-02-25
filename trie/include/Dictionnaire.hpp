@@ -14,25 +14,26 @@ class Dictionnaire
 
         Node& operator=(const Node& other) 
         {
-        if (this == &other) {
+            if (this == &other) 
+            {
+                return *this;
+            }
+
+            Data = other.Data;
+
+            Left = other.Left;
+            Right = other.Right;
+
             return *this;
-        }
-
-        Data = other.Data;
-
-        Left = other.Left;
-        Right = other.Right;
-
-        return *this;
         }
     };
 
     public:
         Dictionnaire() : root(nullptr) {}
 
-        void AddWord(std::string word);
+        void AddWord(const std::string& word);
 
-        void DeleteWord(std::string word); //TODO
+        void DeleteWord(const std::string& word);
 
         bool SearchWord(std::string word);
 
@@ -44,7 +45,14 @@ class Dictionnaire
 
         void ParcoursPreOrdre();
 
+        void affichDict();
+
+    private:
         void ParcoursPreOrdreHelper(std::shared_ptr<Node> node);
+
+        bool SearchWordHelper(std::shared_ptr<Node> node, std::string::iterator it, std::string::iterator end);
+
+        void affichDictHelper(std::shared_ptr<Node> node, std::string currentWord);
 
     private:
         std::shared_ptr<Node> root;
