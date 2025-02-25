@@ -11,4 +11,7 @@ This repository features a set of projects that simulate different data structur
 ## 📂 Projects
 
 1. Stack Simulation: [War](stack/)
-2. N-ary Tree with Family Tree Simulation: [Family Tree](family_tree/)
+2. Queue simulation: [Factory](queue/)
+2. Trie implementation: [Dictionnary](trie/)
+4. N-ary Tree with Family Tree Simulation: [Family Tree](family_tree/)
+5. Linked list global sum: [Distributed list](distributed_list/)
