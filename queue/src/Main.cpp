@@ -22,8 +22,6 @@ int main() {
 
     int halfMinutes = 0;
 
-    bool canCreatePiston = false;
-
 
 
     while (fileFinal.taille() < 100)
