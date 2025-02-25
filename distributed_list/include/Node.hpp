@@ -5,75 +5,91 @@
 
 using namespace std;
 
+/**
+ * @class Node
+ * @brief A class representing a node in a doubly linked list with thread synchronization.
+ * 
+ * The Node class encapsulates the properties and behaviors of a node in a doubly linked list.
+ * It includes thread synchronization mechanisms to safely access and modify the node's state.
+ */
 class Node
 {
 private:
     int node_id;
-    int sum;
-    int global_sum;
-
-public:
     Node *previous_node;
     Node *next_node;
-    mutex mutex_sum;
-    condition_variable cv;
-    bool ready = false;
 
-    Node(int id) : node_id(id), previous_node(nullptr), next_node(nullptr), sum(0) {}
+    mutable mutex mutex_id; /**< Mutex for thread synchronization. */
+    condition_variable cv;  /**< Condition variable to signal readiness. */
+    bool ready;             /**< Flag indicating if the node is ready. */
 
-    int getID() { return node_id; }
-    int getSum() { return sum; }
-    int getGlobalSum() { return global_sum; }
+public:
+    /**
+    * @brief Constructor to initialize a Node with a given ID.
+    * 
+    * @param id The unique identifier for the node.
+    */
+    Node(int id)
+        : node_id(id),
+          previous_node(nullptr),
+          next_node(nullptr),
+          ready(true) {}
 
+    /**
+    * @brief Sends the node ID when the node is ready.
+    * 
+    * This method waits until the node is ready and then returns the node ID.
+    * 
+    * @return int The node ID.
+    */
+    int send()
+    {
+        unique_lock<mutex> lock(mutex_id);
+        cv.wait(lock, [this]
+                { return isReady(); });
+        return node_id;
+    }
+
+    // Getters
+    int getID() const { return node_id; }
+    Node *getPreviousNode() const { return previous_node; }
+    Node *getNextNode() const { return next_node; }
+    bool isReady() const { return ready; }
+
+    // Setters
+    void setPreviousNode(Node *node) { previous_node = node; }
+    void setNextNode(Node *node) { next_node = node; }
+    void setReady(bool state) { ready = state; }
+
+    /**
+    * @brief Sets the previous and next neighbors of the node.
+    * 
+    * @param p Pointer to the previous node.
+    * @param n Pointer to the next node.
+    */
     void set_neighbors(Node *p, Node *n)
     {
-        previous_node = p;
-        next_node = n;
+        setPreviousNode(p);
+        setNextNode(n);
     }
 
-    void start_propagation()
+    /**
+    * @brief Checks if the node has a previous node.
+    * 
+    * @return bool True if the node has a previous node, false otherwise.
+    */
+    bool hasPreviousNode() const
     {
-        if (previous_node)
-        {
-            previous_node->start_propagation();
-        }
-        else
-        {
-            send(node_id, this);
-        }
+        return getPreviousNode() != nullptr;
     }
 
-    void send_final_sum(int value)
+    /**
+    * @brief Checks if the node has a next node.
+    * 
+    * @return bool True if the node has a next node, false otherwise.
+    */
+    bool hasNextNode() const
     {
-        global_sum = value;
-        if (previous_node)
-        {
-            previous_node->send_final_sum(value);
-        }
-    }
-    void send(int value, Node *sender)
-    {
-        unique_lock<mutex> lock(mutex_sum);
-        sum += value; // Accumulate the sum
-
-        ready = true;
-        cv.notify_one();
-
-        if (next_node)
-        {
-            next_node->send(sum + next_node->getID(), this);
-        }
-        else
-        { // last one should have the final value
-            global_sum = sum;
-            send_final_sum(global_sum);
-        }
-    }
-
-    void compute_sum()
-    {
-        unique_lock<mutex> lock(mutex_sum);
-        cv.wait(lock, [this]
-                { return ready; });
+        return getNextNode() != nullptr;
     }
 };

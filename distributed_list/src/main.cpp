@@ -2,45 +2,48 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <omp.h>
 
-#include "Node.hpp"
+#include "Thread.hpp"
+
+using namespace std;
 
 int main()
 {
     const int num_nodes = 5;
     Node *nodes[num_nodes];
 
-    // Création des nœuds
-    for (int i = 0; i < num_nodes; ++i)
+    // Step 1 : Create nodes and set neighbors.
+    for (int i = 0; i < num_nodes; i++)
     {
         nodes[i] = new Node(i + 1);
     }
-
-    // Configuration des voisins
-    for (int i = 0; i < num_nodes; ++i)
+    // Set neighbors
+    for (int i = 0; i < num_nodes; i++)
     {
         nodes[i]->set_neighbors(i > 0 ? nodes[i - 1] : nullptr,
                                 i < num_nodes - 1 ? nodes[i + 1] : nullptr);
     }
+    cout << "Nodes created and neighbors set" << endl;
 
-    // Lancement des threads
-    thread threads[num_nodes];
-    for (int i = 0; i < num_nodes; ++i)
+
+    // Step 2 : Compute the total sum for each node in parallel.
+    #pragma omp parallel for
+    for (int i = 0; i < num_nodes; i++)
     {
-        threads[i] = thread(&Node::compute_sum, nodes[i]);
+        Thread thread(nodes[i]);
+        thread.totaleSum();
+
+    // Ensure thread-safe output
+    #pragma omp critical
+        {
+            cout << "Total sum for node " << i + 1 << ": " << thread.getGlobalSum() << endl;
+        }
     }
 
-    // Démarrage de la propagation
-    nodes[3]->start_propagation();
-    for (int i = 0; i < num_nodes; ++i)
+    // Step 2 : Clean up.
+    for (int i = 0; i < num_nodes; i++)
     {
-        cout << nodes[i]->getGlobalSum() << endl;
-    }
-
-    // Attente de la fin des threads
-    for (int i = 0; i < num_nodes; ++i)
-    {
-        threads[i].join();
         delete nodes[i];
     }
 
