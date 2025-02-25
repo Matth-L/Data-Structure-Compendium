@@ -2,10 +2,6 @@
 
 This exercise involved setting up a **doubly linked list** that would be traversed by multiple threads.
 
-## 🔧 Implementation
-
-In this project, we will implement a doubly linked list that supports insertion, search, and deletion operations. This data structure will be traversed by multiple threads to demonstrate concurrency management.
-
 ## 🚀 Usage
 
 First, clone the repository:
