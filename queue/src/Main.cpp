@@ -27,39 +27,44 @@ int main() {
     while (fileFinal.taille() < 100)
     {
         // Etape 3 : Mise à jour des machines
-        MT.update();
-        MJ.update();
-        MA.update();
+        MT.Update();
+        MJ.Update();
+        MA.Update();
 
         // Etape 4 : Création des pièces
-        if (MT.createPiece())
+        if (MT.CreatePiece())
         {
             fileTete.enfiler(Piece(TETE));
         }
-        if (MJ.createPiece())
+        if (MJ.CreatePiece())
         {
             fileJupe.enfiler(Piece(JUPE));
         }
-        if (MA.createPiece())
+        if (MA.CreatePiece())
         {
             fileAxe.enfiler(Piece(AXE));
         }
         if (!fileTete.estVide() && !fileJupe.estVide() && !fileAxe.estVide())
         {
-            filePiston.enfiler(Piece(fileTete.defiler(), fileJupe.defiler(), fileAxe.defiler()));
+            filePiston.enfiler(Piece(fileTete.defiler(),
+                                     fileJupe.defiler(), 
+                                     fileAxe.defiler()));
         }
 
+        // Etape 4.1 : Mise à jour de la machine MP sous condition 
+        // de piston à créer
         if (!filePiston.estVide())
         {
-            MP.update();
+            MP.Update();
         }
         
         // Etape 5 : Assemblage des pièces
-        if (!filePiston.estVide() && MP.createPiece())
+        if (!filePiston.estVide() && MP.CreatePiece())
         {
             fileFinal.enfiler(filePiston.defiler());
         }
 
+        // Incrémentation du temps
         halfMinutes++;
     }
 
@@ -68,7 +73,8 @@ int main() {
     bool isHalf = (minutes - (int)minutes) == 0.5f;
     
     // Affichage du temps total
-    std::cout << "Temps total : " << halfMinutes / 120 << "h " << (int)minutes%60 << "min " << ( (isHalf) ? 30 : 0 ) << "sec" << std::endl;
+    std::cout << "Temps total : " << halfMinutes / 120 << "h " << 
+    (int)minutes%60 << "min " << ( (isHalf) ? 30 : 0 ) << "sec" << std::endl;
     std::cout << "Soit : " << minutes << " minutes." << std::endl;
     
 
