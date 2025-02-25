@@ -14,12 +14,12 @@ Machine::Machine(int t)
     timeToCreate = t;
 }
 
-bool Machine::createPiece()
+bool Machine::CreatePiece()
 {
     return timeToCreate == 0;
 }
 
-void Machine::update()
+void Machine::Update()
 {
     if (timeToCreate > 0)
     {
