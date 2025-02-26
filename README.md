@@ -23,22 +23,22 @@ sudo apt install cxxtest
 
 1. Stack Simulation: [War](stack/)
 
-<img src="./img/stack.gif" alt="stack" width="300"/>
+<img src="./img/stack.gif" alt="stack" width="500"/>
 
 2. Queue simulation: [Factory](queue/)
 
-<img src="./img/queue.gif" alt="queue" width="300"/>
+<img src="./img/queue.gif" alt="queue" width="500"/>
 
 3. Trie implementation: [Dictionnary](trie/)
 
-<img src="./img/trie.gif" alt="trie" width="300"/>
+<img src="./img/trie.gif" alt="trie" width="500"/>
 
 4. N-ary Tree with Family Tree Simulation: [Family Tree](family_tree/)
 
-<img src="./img/tree.gif" alt="family_tree" width="300"/>
+<img src="./img/tree.gif" alt="family_tree" width="500"/>
 
 5. Linked list global sum: [Distributed list](distributed_list/)
 
-<img src="./img/double_linked_list.png" alt="distributed_list" width="300"/>
+<img src="./img/double_linked_list.png" alt="distributed_list" width="500"/>
 
 </div>
