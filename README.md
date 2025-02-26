@@ -20,6 +20,7 @@ sudo apt install cxxtest
 ## 📂 Projects
 
 <div align="center">
+
 1. Stack Simulation: [War](stack/)
 
 <img src="./img/stack.gif" alt="stack" width="300"/>
