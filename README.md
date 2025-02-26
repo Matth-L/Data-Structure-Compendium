@@ -1,5 +1,6 @@
 # Data Structure Compendium
 
+
 This repository features a set of projects that simulate different data structures. Each project focuses on a specific concept in C++.
 
 ## 📋 Requirements
@@ -18,10 +19,10 @@ sudo apt install cxxtest
 
 ## 📂 Projects
 
+<div align="center">
 1. Stack Simulation: [War](stack/)
 
 <img src="./img/stack.gif" alt="stack" width="300"/>
-
 
 2. Queue simulation: [Factory](queue/)
 
@@ -38,3 +39,5 @@ sudo apt install cxxtest
 5. Linked list global sum: [Distributed list](distributed_list/)
 
 <img src="./img/double_linked_list.png" alt="distributed_list" width="300"/>
+
+</div>
